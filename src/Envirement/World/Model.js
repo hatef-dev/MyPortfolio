@@ -10,10 +10,12 @@ export default class Model {
     }
     setModel() {
         this.model = this.resources.items.glbModel.scene;
+        this.model.scale.set(0.1, 0.1, 0.1)
         this.model.traverse(child => {
+
             if (child instanceof THREE.Mesh) {
                 child.material.emissiveIntensity = 6
-
+                child.material.metalness = 0.6
                 if (child.name === "FindingWaySign_Bars") {
                     child.material.transparent = true
                     const texture = this.resources.items.textureSign

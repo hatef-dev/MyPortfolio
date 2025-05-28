@@ -33,8 +33,8 @@ export default class Camera {
         this.controls.maxPolarAngle = Math.PI / 2.3 // Limit vertical rotation (80 degrees)
         
         // Set zoom limits
-        this.controls.minDistance = 1
-        this.controls.maxDistance = 2
+        // this.controls.minDistance = 1
+        // this.controls.maxDistance = 2
         
         // // Set pan 
         // this.controls.enablePan = false
