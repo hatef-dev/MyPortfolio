@@ -19,11 +19,11 @@ export default class Envirement {
     }
     instance = this;
     this.gsap = gsap;
-    this.statsTest = new StatsTest();
     this.parameters = {
       backgroundColor: "#999999",
     };
     this.debug = new Debug();
+    this.statsTest = new StatsTest();
     this.canvas = canvas;
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(this.parameters.backgroundColor);

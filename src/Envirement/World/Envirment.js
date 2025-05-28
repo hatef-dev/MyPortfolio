@@ -40,7 +40,7 @@ export default class Envirment {
     }
     setEnvironmentMap() {
         this.environmentMap = this.resources.items.environmentMap
-        console.log(this.environmentMap)
+
         this.environmentMap.mapping = THREE.EquirectangularReflectionMapping
         this.scene.background = this.environmentMap
         this.scene.environment = this.environmentMap
