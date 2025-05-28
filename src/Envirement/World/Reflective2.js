@@ -34,6 +34,7 @@ export default class Reflective2 {
       color: this.parameters.color,
       textureHeight: 496,
       shader: {
+        precision: 'lowp',
         uniforms: {
           color: { value: new THREE.Color(this.parameters.color) },
           tDiffuse: { value: null },

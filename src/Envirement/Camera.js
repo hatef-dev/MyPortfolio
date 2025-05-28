@@ -15,7 +15,7 @@ export default class Camera {
         this.createControls()
     }
     createPerspectiveCamera() {
-        this.perspectiveCamera = new THREE.PerspectiveCamera(75, this.sizes.width / this.sizes.height, 0.1, 100)
+        this.perspectiveCamera = new THREE.PerspectiveCamera(55, this.sizes.width / this.sizes.height, 0.1, 100)
         this.perspectiveCamera.position.set(-1.8, 0.66, 0.41)
         if (this.debug.active) {
             this.cameraFolder.add(this.perspectiveCamera.position, 'x').min(-10).max(10).step(0.01)
@@ -29,7 +29,7 @@ export default class Camera {
         this.controls.enableDamping = true
         
         // Set rotation limits
-        this.controls.minPolarAngle = Math.PI / 4 // Limit vertical rotation (45 degrees)
+        // this.controls.minPolarAngle = Math.PI / 6 // Limit vertical rotation (45 degrees)
         this.controls.maxPolarAngle = Math.PI / 2.3 // Limit vertical rotation (80 degrees)
         
         // Set zoom limits
@@ -37,7 +37,7 @@ export default class Camera {
         this.controls.maxDistance = 2
         
         // // Set pan 
-        this.controls.enablePan = false
+        // this.controls.enablePan = false
 
         
         // Set rotation speed
