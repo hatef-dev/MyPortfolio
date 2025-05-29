@@ -12,7 +12,9 @@ import StatsTest from "./Utils/StatsTest.js";
 let instance = null;
 
 
+
 export default class Envirement {
+
   constructor(canvas) {
     if (instance) {
       return instance;
@@ -24,6 +26,27 @@ export default class Envirement {
     };
     this.debug = new Debug();
     this.statsTest = new StatsTest();
+    const loadingBar = document.querySelector(".loading");
+    console.log(loadingBar);
+    this.loadingManager = new THREE.LoadingManager(
+      () => {
+      },
+      (item, loaded, total) => {
+        // console.log(item, loaded, total);
+        const progressRatio = loaded / total;
+        if(progressRatio === 1){
+          gsap.to(loadingBar, {
+            opacity: 0,
+            duration: 1,
+            ease: "power2.inOut",
+            onComplete: () => {
+              loadingBar.style.display = "none";
+            },
+          });
+        }
+        // console.log(progressRatio);
+      }
+    );
     this.canvas = canvas;
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(this.parameters.backgroundColor);
@@ -32,7 +55,6 @@ export default class Envirement {
     this.camera = new Camera(this.canvas);
     this.resources = new Resources(assets);
     this.world = new World(this.scene, this.resources);
-
     if (this.debug.active) {
       this.debugFolder = this.debug.gui.addFolder(
         "Envirement Background Color"

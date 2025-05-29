@@ -21,6 +21,7 @@ export default class World {
             this.reflective2 = new Reflective2()
             this.raycast = new Raycast()
         })
+        
         if (this.raycast) {
             this.raycast.on('mousemove', () => {
             })
