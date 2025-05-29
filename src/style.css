@@ -36,7 +36,7 @@ canvas{
 .loading-text{
   position: absolute;
   /* display: inline-block; */
-  top: 62%;
+  top: 63%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
@@ -262,5 +262,19 @@ canvas{
     stroke-dasharray: 0 440;
     stroke-width: 20;
     stroke-dashoffset: -440;
+  }
+}
+
+@media (min-width: 768px) {
+  .loading-text{
+    top: 63%;
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-text{
+    top: 63%;
+    font-size: 20px;
   }
 }

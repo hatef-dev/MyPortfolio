@@ -27,14 +27,23 @@ export default class Envirement {
     this.debug = new Debug();
     this.statsTest = new StatsTest();
     const loadingBar = document.querySelector(".loading");
-    console.log(loadingBar);
+    const loadingText = document.querySelector(".loading-text");
+    const loadingTextSpan = document.querySelector(".loading-text-span");
     this.loadingManager = new THREE.LoadingManager(
       () => {
       },
       (item, loaded, total) => {
-        // console.log(item, loaded, total);
-        const progressRatio = loaded / total;
-        if(progressRatio === 1){
+        const progressRatio = Math.round(loaded / total *100); 
+        loadingTextSpan.textContent = `${progressRatio}%`;
+        if(progressRatio === 100){
+          gsap.to(loadingText, {
+            opacity: 0,
+            duration: 1,
+            ease: "power2.inOut",
+            onComplete: () => {
+              loadingText.style.display = "none";
+            },
+          });
           gsap.to(loadingBar, {
             opacity: 0,
             duration: 1,
