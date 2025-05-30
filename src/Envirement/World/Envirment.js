@@ -8,8 +8,8 @@ export default class Envirment {
         this.debug = this.experience.debug
         this.parameters = {
             colorDirectionalLight: 0xffffff,
-            colorHemisphereLight: 0x00AAFF,
-            colorHemisphereLight2: 0xFFAA00,
+            colorHemisphereLight: 0xFFFFFF,
+            colorHemisphereLight2: 0xffdb94,
         }
         if (this.debug.active) {
             this.envirmentFolder = this.debug.gui.addFolder('Envirment Folder')
@@ -17,9 +17,7 @@ export default class Envirment {
         this.setLight()
     }
     setLight() {
-        // this.light = new THREE.DirectionalLight(this.parameters.colorDirectionalLight, 4)
-        // this.light.position.set(-1, 1, 0)
-        // this.scene.add(this.light)
+
 
         this.hemisphereLight = new THREE.HemisphereLight(this.parameters.colorHemisphereLight, this.parameters.colorHemisphereLight2, 2)
         this.hemisphereLight.position.set(0, 3, 0)

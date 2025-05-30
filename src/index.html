@@ -5,7 +5,11 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Vite App</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <title>Portfolio</title>
   </head>
   <body>
     <canvas id="draw"></canvas>
@@ -62,6 +66,146 @@
     <div class="loading-text">
       <p>Loading...</p>
       <span class="loading-text-span">0%</span>
+    </div>
+
+    <div class="AboutMePage">
+      <main class="split-layout">
+        <section class="left-panel">
+          <div class="content-wrapper">
+            <h1>ABOUT ME</h1>
+            <p class="subtitle">HI, I'M Hatef Sanati!</p>
+
+            <hr class="dotted-line" />
+            <div class="subtitle-container">
+              <p>Just a Tech</p>
+              <p>No Hugs, No Kisses, Only Bugs and Fixes</p>
+            </div>
+
+            <hr class="dotted-line" />
+          </div>
+        </section>
+
+        <section class="right-panel">
+          <img
+            src="./texture/hatef.jpg"
+            alt="Hatef Sanati"
+            class="profile-image"
+          />
+        </section>
+      </main>
+
+      <section class="life-journey-section">
+        <h2>MY LIFE JOURNEY</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h3>Age 12 - Computer? Love at first sight!</h3>
+              <p>
+                One day, a glowing computer showed up at our home. While
+                everyone else was excited to play games, I was the curious one
+                asking, "How does this magic box even work?" The moment I
+                discovered websites were built with "code," it felt like I
+                unlocked a secret door to another world.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h3>Age 15 – Building websites? Like doing magic tricks!</h3>
+              <p>
+                I met HTML and CSS and instantly became a fan. Centering a
+                button on the page? That was my masterpiece! Every tiny change
+                felt like a superpower. That’s when I realized — code runs in my
+                veins
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h3>Age 19 - Enter JavaScript!</h3>
+              <p>
+                Things started getting serious. JavaScript walked in, and boom —
+                the web got interactive! The first time I triggered an alert()
+                message, I legit felt like a hacker
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h3>Age 21 - Vue.js: My coding soulmate</h3>
+              <p>
+                This was when I got introduced to Vue.js, and oh boy — it
+                changed everything. I finally learned how to write clean,
+                organized, and scalable code. My projects became more complex,
+                but I loved the challenge.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h3>Age 22 – Three.js: A 3D love story</h3>
+              <p>
+                One day someone asked me, “Have you ever tried Three.js?” I said
+                no. I tried it... and never looked back. Suddenly, I was
+                building mountains, adding lights, and even launching spaceships
+                — all inside the browser. Okay, they weren’t real spaceships,
+                but still... it was AWESOME!
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h3>Today – Still Simple Programmer</h3>
+              <p>
+                Looking back, I’m still that curious kid at heart — just with a
+                few more programming languages in my toolbox. I still get
+                excited over a cool animation or a clean UI. And yes, when my
+                code breaks, I grab a cup of tea, take a deep breath… and dive
+                right back in.
+              </p>
+            </div>
+          </div>
+
+          <!-- Add more timeline items as needed -->
+        </div>
+      </section>
+
+      <section id="skills" class="skills-section">
+        <h2>SKILLS</h2>
+        <div class="skills-container">
+          <div class="skill-item">
+            <i class="fas fa-code"></i>
+            <span>Web</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-react"></i>
+            <span>React</span>
+          </div>
+
+          <div class="skill-item">
+            <i class="fab fa-js-square"></i>
+            <span>JavaScript</span>
+          </div>
+
+          <div class="skill-item">
+            <i class="fab fa-vuejs"></i>
+            <span>Vue.js</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-linux"></i>
+            <span>Linux</span>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <p>I Need More Coffee For This Fucking Footer</p>
+      </footer>
     </div>
     <script type="module" src="/main.js"></script>
   </body>
