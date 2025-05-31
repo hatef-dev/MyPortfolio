@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import EventEmitter from "./Utils/EmitterEven.js";
-import ProjectCamera from "./CameraAnimation/ProjectCamera.js";
+import ProjectCamera from "./CameraAnimation/ProjectAboutMeCameraAnimation.js";
 import Experience from "./Experience.js";
 export default class Raycast extends EventEmitter {
   constructor() {
@@ -11,6 +11,7 @@ export default class Raycast extends EventEmitter {
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
     this.projectClicked = null;
+    this.AboutMeClicked = null;
     this.isCameraMoving = false;
     this.currentIntersect = null;
     this.projectCamera = new ProjectCamera();
@@ -25,36 +26,56 @@ export default class Raycast extends EventEmitter {
   }
   selectedObject() {
     this.scene.traverse((child) => {
-        if(child.name == "FindingWaySign_Card1") {
-            this.projectClicked = child;
-        }
-    })
+      if (
+        child.name == "FindingWaySign_Card1" 
+      ) {
+        this.projectClicked = child;
+      }
+      if (
+        child.name == "FindingWaySign_Card2"
+      ) {
+        this.AboutMeClicked = child;
+      }
+    });
   }
 
   onMouseMove(event) {
     this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    this.trigger('mousemove')
+    this.trigger("mousemove");
   }
   update() {
+    let intersects = null;
     this.raycaster.setFromCamera(this.mouse, this.camera);
-    if (this.projectClicked) {
-      const intersects = this.raycaster.intersectObject(this.projectClicked);
+    
+     if (this.projectClicked) {
+      intersects = this.raycaster.intersectObject(this.projectClicked);
       if (intersects.length > 0) {
         if (!this.currentIntersect) {
-          this.currentIntersect = intersects;
+          this.currentIntersect = "project";
         }
       } else {
         this.currentIntersect = null;
       }
     }
+    if (this.AboutMeClicked) {
+      intersects = this.raycaster.intersectObject(this.AboutMeClicked);
+      if (intersects.length > 0) {
+        if (!this.currentIntersect) {
+          this.currentIntersect = "aboutMe";
+        }
+        else {
+          this.currentIntersect = null;
+        }
+      }
+    }
   }
   changeCameraPosition() {
-    if(this.currentIntersect) {
-        this.isCameraMoving = true;
-        if(this.isCameraMoving) {
-            this.projectCamera.start();
-        }
+    if (this.currentIntersect === "project" || this.currentIntersect === "aboutMe") {
+      this.isCameraMoving = true;
+      if (this.isCameraMoving) {
+        this.projectCamera.start();
+      }
     }
   }
 }

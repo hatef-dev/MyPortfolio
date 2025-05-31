@@ -5,7 +5,7 @@ import Reflective2 from "./Reflective2.js";
 import CatModel from "./CatModel.js";
 import CamerStartAnimation from "../CameraAnimation/CamerStartAnimation.js";
 import Raycast from "../Raycast.js";
-import * as THREE from "three";
+// import * as THREE from "three";
 
 export default class World {
   constructor() {
@@ -23,18 +23,7 @@ export default class World {
       this.reflective2 = new Reflective2();
       this.raycast = new Raycast();
     });
-    const plane = new THREE.PlaneGeometry(1, 1);
-    const material = new THREE.MeshBasicMaterial({
-      color: "red",
-      side: THREE.DoubleSide,
-    });
-    const planeMesh = new THREE.Mesh(plane, material);
-    this.scene.add(planeMesh);
-    if (this.debug.active) {
-      this.debug.gui.add(planeMesh.position, "x").min(-10).max(10).step(0.01);
-      this.debug.gui.add(planeMesh.position, "y").min(-10).max(10).step(0.01);
-      this.debug.gui.add(planeMesh.position, "z").min(-10).max(10).step(0.01);
-    }
+    
     if (this.raycast) {
       this.raycast.on("mousemove", () => {});
     }
