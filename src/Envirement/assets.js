@@ -20,6 +20,11 @@ export default [
         type: "texture",
         path: "/texture/FindingWaySign_mtl_Alpha.jpg"
     },
+    // {
+    //     name: "perlinNoise",
+    //     type: "texture",
+    //     path: "/texture/perlinNoise.jpg"
+    // }
     
     
     
