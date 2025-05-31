@@ -10,7 +10,7 @@ export default class Resources extends EventEmitter {
     this.items = {};
     this.toLoad = this.assets.length;
     this.loaded = 0;
-    this.loadingManager = this.experience.loadingManager;
+    this.loadingManager = this.experience.loadingManager.loadingManager;
     this.setLoaders();
     this.startLoading();
     

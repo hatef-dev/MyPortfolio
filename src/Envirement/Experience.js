@@ -9,6 +9,7 @@ import assets from "./assets.js";
 import Debug from "./Utils/Debug.js";
 import gsap from "gsap";
 import StatsTest from "./Utils/StatsTest.js";
+import LoadingManager from "./LoadingManger.js";
 let instance = null;
 
 
@@ -26,36 +27,7 @@ export default class Envirement {
     };
     this.debug = new Debug();
     this.statsTest = new StatsTest();
-    const loadingBar = document.querySelector(".loading");
-    const loadingText = document.querySelector(".loading-text");
-    const loadingTextSpan = document.querySelector(".loading-text-span");
-    this.loadingManager = new THREE.LoadingManager(
-      () => {
-      },
-      (item, loaded, total) => {
-        const progressRatio = Math.round(loaded / total *100); 
-        loadingTextSpan.textContent = `${progressRatio}%`;
-        if(progressRatio === 100){
-          gsap.to(loadingText, {
-            opacity: 0,
-            duration: 1,
-            ease: "power2.inOut",
-            onComplete: () => {
-              loadingText.style.display = "none";
-            },
-          });
-          gsap.to(loadingBar, {
-            opacity: 0,
-            duration: 1,
-            ease: "power2.inOut",
-            onComplete: () => {
-              loadingBar.style.display = "none";
-            },
-          });
-        }
-        // console.log(progressRatio);
-      }
-    );
+    this.loadingManager = new LoadingManager();
     this.canvas = canvas;
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(this.parameters.backgroundColor);
@@ -63,20 +35,8 @@ export default class Envirement {
     this.time = new Time();
     this.camera = new Camera(this.canvas);
     this.resources = new Resources(assets);
+    
     this.world = new World(this.scene, this.resources);
-    if (this.debug.active) {
-      this.debugFolder = this.debug.gui.addFolder(
-        "Envirement Background Color"
-      );
-      this.debugFolder
-        .addColor(this.parameters, "backgroundColor")
-        .onChange(() => {
-          this.scene.background = new THREE.Color(
-            this.parameters.backgroundColor
-          );
-        });
-    }
-
     this.renderer = new Renderer(this.canvas, this.scene);
 
     this.sizes.on("resize", () => {

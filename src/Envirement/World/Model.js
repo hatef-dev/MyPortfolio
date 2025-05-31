@@ -10,7 +10,7 @@ export default class Model {
     }
     setModel() {
         this.model = this.resources.items.glbModel.scene;
-        this.model.scale.set(0.1, 0.1, 0.1)
+        this.model.scale.set(1, 1, 1)
         this.model.traverse(child => {
 
             if (child instanceof THREE.Mesh) {

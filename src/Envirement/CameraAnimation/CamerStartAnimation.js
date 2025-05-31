@@ -9,9 +9,9 @@ export default class CamerStartAnimation {
     }
     start() {
         this.gsap.to(this.camera.position, {
-            x: 1.15,
+            x: 10,
             delay: 0.5,
-            duration: 1.5,
+            duration: 2,
             ease: 'power2.inOut',
         })
     }

@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import Experience from './Experience.js'
+
 export default class Camera {
     constructor() {
         this.experience = new Experience()
@@ -8,46 +9,49 @@ export default class Camera {
         this.scene = this.experience.scene
         this.canvas = this.experience.canvas
         this.debug = this.experience.debug
+
         if (this.debug.active) {
             this.cameraFolder = this.debug.gui.addFolder('Camera Folder')
         }
+
         this.createPerspectiveCamera()
-        this.createControls()
+        this.createOrbitControls()
     }
+
     createPerspectiveCamera() {
         this.perspectiveCamera = new THREE.PerspectiveCamera(55, this.sizes.width / this.sizes.height, 0.1, 100)
-        this.perspectiveCamera.position.set(-1.8, 0.66, 0.41)
-        if (this.debug.active) {
-            this.cameraFolder.add(this.perspectiveCamera.position, 'x').min(-10).max(10).step(0.01)
-            this.cameraFolder.add(this.perspectiveCamera.position, 'y').min(-10).max(10).step(0.01)
-            this.cameraFolder.add(this.perspectiveCamera.position, 'z').min(-10).max(10).step(0.01)
-        }
+        this.perspectiveCamera.position.set(-40,15, 20)
         this.scene.add(this.perspectiveCamera)
     }
-    createControls() {
+
+    createOrbitControls() {
         this.controls = new OrbitControls(this.perspectiveCamera, this.canvas)
+        
+        // Configure controls for smooth rotation
         this.controls.enableDamping = true
         
-        // Set rotation limits
-        // this.controls.minPolarAngle = Math.PI / 6 // Limit vertical rotation (45 degrees)
-        this.controls.maxPolarAngle = Math.PI / 2.3 // Limit vertical rotation (80 degrees)
         
-        // Set zoom limits
-        // this.controls.minDistance = 1
-        // this.controls.maxDistance = 2
+        // Set rotation limits (optional, remove if you want full rotation)
+        this.controls.minPolarAngle = 0 // Vertical rotation minimum (0 = straight down)
+        this.controls.maxPolarAngle = Math.PI / 2.3 // Vertical rotation maximum (PI = straight up)
         
-        // // Set pan 
-        // this.controls.enablePan = false
-
+        // Set zoom limits (optional)
+        this.controls.minDistance = 1
+        this.controls.maxDistance = 20
         
-        // Set rotation speed
-        this.controls.rotateSpeed = 0.5
+        // Enable the controls
+        this.controls.enabled = true
+        
     }
+
     resize() {
         this.perspectiveCamera.aspect = this.sizes.width / this.sizes.height
         this.perspectiveCamera.updateProjectionMatrix()
     }
+
     update() {
-        this.controls.update()
+        if (this.controls) {
+            this.controls.update()
+        }
     }
 }
