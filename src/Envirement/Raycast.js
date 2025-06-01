@@ -11,13 +11,17 @@ export default class Raycast extends EventEmitter {
     this.camera = this.experience.camera.perspectiveCamera;
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
-    this.aboutMeTexture = [
+    // Textures 
+    this.currentTexture = 0;
+    this.aboutMeTextures = [
       this.experience.resources.items.AboutMe1,
       this.experience.resources.items.AboutMe2,
       this.experience.resources.items.AboutMe3,
       this.experience.resources.items.AboutMe4,
     ];
-
+    for(let i = 0; i < this.aboutMeTextures.length; i++) {
+      this.aboutMeTextures[i].colorSpace = THREE.SRGBColorSpace;
+    }
     // Raycast
     this.projectClicked = null;
     this.AboutMeClicked = null;
@@ -26,6 +30,9 @@ export default class Raycast extends EventEmitter {
     this.githubClicked = null;
     this.instagramClicked = null;
     this.tvScreen = null;
+    this.nextButton = null;
+    this.previousButton = null;
+    this.exitButton = null;
 
     // Camera
     this.isCameraMoving = false;
@@ -40,21 +47,16 @@ export default class Raycast extends EventEmitter {
     // Add single event listener
     window.addEventListener("mousemove", this.onMouseMove);
     window.addEventListener("click", () => {
-      this.changeCameraPosition();
+      this.doAction();
     });
   }
   selectedObject() {
     this.scene.traverse((child) => {
       if (child instanceof THREE.Mesh) {
-        if (child.name == "FindingWaySign_Card1") {
-          this.projectClicked = child;
-        }
-        if (child.name == "FindingWaySign_Card2") {
-          this.AboutMeClicked = child;
-        }
-        if (child.name == "FindingWaySign_Card3") {
-          this.contactUs = child;
-        }
+
+       
+
+        // Social Media
         if (child.name == "Linkedin_click") {
           this.linkdinClicked = child;
         }
@@ -63,6 +65,32 @@ export default class Raycast extends EventEmitter {
         }
         if (child.name == "Instagram_click") {
           this.instagramClicked = child;
+        }
+
+        // TvScreen
+        if(child.name == "TvScreen"){
+          this.tvScreen = child;
+        }
+        if(child.name == "Next_Button"){
+          this.nextButton = child;
+        }
+        if(child.name == "Previous_Button"){
+          this.previousButton = child;
+        }
+        if(child.name == "Exit_Button"){
+          this.exitButton = child;
+        }
+
+
+         // Project About Me Contact Me
+         if (child.name == "FindingWaySign_Card1") {
+          this.projectClicked = child;
+        }
+        if (child.name == "FindingWaySign_Card2") {
+          this.AboutMeClicked = child;
+        }
+        if (child.name == "FindingWaySign_Card3") {
+          this.contactUs = child;
         }
         
       }
@@ -78,14 +106,17 @@ export default class Raycast extends EventEmitter {
     let intersects = null;
     this.raycaster.setFromCamera(this.mouse, this.camera);
 
+    // Project About Me Contact Me
     if (this.projectClicked) {
       intersects = this.raycaster.intersectObject(this.projectClicked);
+      
       if (intersects.length > 0) {
         if (!this.currentIntersect) {
           this.currentIntersect = "project";
         }
       } else {
         this.currentIntersect = null;
+        // this.tvScreen.material.map = this.aboutMeTextures[this.currentTexture];
       }
     }
     if (this.AboutMeClicked) {
@@ -108,6 +139,9 @@ export default class Raycast extends EventEmitter {
         }
       }
     }
+
+
+    // Social Media
     if (this.linkdinClicked) {
       intersects = this.raycaster.intersectObject(this.linkdinClicked);
       if (intersects.length > 0) {
@@ -138,12 +172,46 @@ export default class Raycast extends EventEmitter {
         }
       }
     }
+
+    // TvScreen
+    if(this.tvScreen){
+      intersects = this.raycaster.intersectObject(this.tvScreen);
+      if(intersects.length > 0){
+        this.currentIntersect = "tvScreen";
+      }
+    }
+
+    // Next Button  
+    if(this.nextButton){
+      intersects = this.raycaster.intersectObject(this.nextButton);
+      if(intersects.length > 0){
+        this.currentIntersect = "nextButton";
+      }
+    }
+
+    // Previous Button
+    if(this.previousButton){
+      intersects = this.raycaster.intersectObject(this.previousButton);
+      if(intersects.length > 0){
+        this.currentIntersect = "previousButton";
+      }
+    }
+
+    // Exit Button
+    if(this.exitButton){
+      intersects = this.raycaster.intersectObject(this.exitButton);
+      if(intersects.length > 0){
+        this.currentIntersect = "exitButton";
+      }
+    }
   }
-  changeCameraPosition() {
+  doAction() {
+    // Project About Me Contact Me
     if (
       this.currentIntersect === "project" ||
       this.currentIntersect === "aboutMe"
     ) {
+      this.tvScreen.material.map = this.aboutMeTextures[0];
       this.isCameraMoving = true;
       if (this.isCameraMoving) {
         this.projectCamera.start();
@@ -155,6 +223,8 @@ export default class Raycast extends EventEmitter {
         this.contactUsCamera.start();
       }
     }
+
+    // Social Media
     if (this.currentIntersect === "linkdin") {
       window.open("https://www.linkedin.com/in/hatef-sanati/");
     }
@@ -164,5 +234,25 @@ export default class Raycast extends EventEmitter {
     if (this.currentIntersect === "instagram") {
       window.open("https://www.instagram.com/hatef_sanati/");
     }
+
+    // TvScreen
+    if(this.currentIntersect === "nextButton"){
+      if(this.currentTexture < this.aboutMeTextures.length - 1){
+        this.currentTexture++;
+        this.changeTexture();
+      }
+    }
+    if(this.currentIntersect === "previousButton"){
+      if(this.currentTexture > 0){
+        this.currentTexture--;
+        this.changeTexture();
+      }
+    }
+
+
+  }
+  changeTexture(){
+    this.tvScreen.material.map = this.aboutMeTextures[this.currentTexture];
+    this.tvScreen.material.needsUpdate = true;
   }
 }

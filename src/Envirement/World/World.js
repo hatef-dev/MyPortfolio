@@ -22,9 +22,9 @@ export default class World {
       this.catModel = new CatModel();
       this.envirment = new Envirment();
       this.reflective2 = new Reflective2();
-      this.raycast = new Raycast();
-      this.smoke = new Smoke();
       this.tvScreen = new TvScreen();
+      this.smoke = new Smoke();
+      this.raycast = new Raycast();
     });
     
     if (this.raycast) {
