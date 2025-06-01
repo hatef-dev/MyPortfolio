@@ -248,6 +248,11 @@ export default class Raycast extends EventEmitter {
         this.changeTexture();
       }
     }
+    if(this.currentIntersect === "exitButton"){
+      this.tvScreen.material.map = null;
+      this.tvScreen.material.needsUpdate = true;
+      this.currentTexture = 0;
+    }
 
 
   }
