@@ -13,6 +13,9 @@ export default class Raycast extends EventEmitter {
     this.mouse = new THREE.Vector2();
     this.projectClicked = null;
     this.AboutMeClicked = null;
+    this.linkdinClicked = null;
+    this.githubClicked = null;
+    this.instagramClicked = null;
     this.isCameraMoving = false;
     this.currentIntersect = null;
     this.projectCamera = new ProjectCamera();
@@ -35,6 +38,16 @@ export default class Raycast extends EventEmitter {
         if(child.name == "FindingWaySign_Card2"){
           this.AboutMeClicked =  child;
           
+        }
+        if(child.name == "Linkedin_click"){
+          this.linkdinClicked = child;
+          
+        }
+        if(child.name == "Github_click"){
+          this.githubClicked = child;
+        }
+        if(child.name == "Instagram_click"){
+          this.instagramClicked = child;
         }
       }
     });
@@ -70,6 +83,41 @@ export default class Raycast extends EventEmitter {
         }
       }
     }
+    if (this.linkdinClicked) {
+      intersects = this.raycaster.intersectObject(this.linkdinClicked);
+      if (intersects.length > 0) {
+        if (!this.currentIntersect) {
+          this.currentIntersect = "linkdin";
+        }
+        else {
+          this.currentIntersect = null;
+        }
+      }
+    }
+    if (this.githubClicked) {
+      intersects = this.raycaster.intersectObject(this.githubClicked);
+      if (intersects.length > 0) {
+        if (!this.currentIntersect) {
+          this.currentIntersect = "github";
+        }
+        else {
+          this.currentIntersect = null;
+        }
+      }
+    }
+    if (this.instagramClicked) {
+      intersects = this.raycaster.intersectObject(this.instagramClicked);
+      if (intersects.length > 0) {
+        if (!this.currentIntersect) {
+          this.currentIntersect = "instagram";
+        } 
+        else {
+          this.currentIntersect = null;
+        }
+      }
+    }
+    
+    
   }
   changeCameraPosition() {
     if (this.currentIntersect === "project") {
@@ -83,6 +131,15 @@ export default class Raycast extends EventEmitter {
       if (this.isCameraMoving) {
         this.contactUsCamera.start();
       }
+    }
+    if(this.currentIntersect === "linkdin"){
+      window.open("https://www.linkedin.com/in/hatef-sanati/")
+    }
+    if(this.currentIntersect === "github"){
+      window.open("https://github.com/hatef-dev")
+    }
+    if(this.currentIntersect === "instagram"){
+      window.open("https://www.instagram.com/hatef_sanati/")
     }
   }
 }
