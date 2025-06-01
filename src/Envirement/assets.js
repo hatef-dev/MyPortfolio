@@ -3,7 +3,7 @@ export default [
     {
         name: "glbModel",
         type: "glbModel",
-        path: "/models/Final10.glb"
+        path: "/models/Test.glb"
     },
     {
         name: "catModel",

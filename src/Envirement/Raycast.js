@@ -13,6 +13,7 @@ export default class Raycast extends EventEmitter {
     this.mouse = new THREE.Vector2();
     this.projectClicked = null;
     this.AboutMeClicked = null;
+    this.contactUs = null;
     this.linkdinClicked = null;
     this.githubClicked = null;
     this.instagramClicked = null;
@@ -37,6 +38,10 @@ export default class Raycast extends EventEmitter {
         }
         if(child.name == "FindingWaySign_Card2"){
           this.AboutMeClicked =  child;
+          
+        }
+        if(child.name == "FindingWaySign_Card3"){
+          this.contactUs =  child;
           
         }
         if(child.name == "Linkedin_click"){
@@ -83,6 +88,17 @@ export default class Raycast extends EventEmitter {
         }
       }
     }
+    if (this.contactUs) {
+      intersects = this.raycaster.intersectObject(this.contactUs);
+      if (intersects.length > 0) {
+        if (!this.currentIntersect) {
+          this.currentIntersect = "contactUs";
+        }
+        else {
+          this.currentIntersect = null;
+        }
+      }
+    }
     if (this.linkdinClicked) {
       intersects = this.raycaster.intersectObject(this.linkdinClicked);
       if (intersects.length > 0) {
@@ -120,13 +136,13 @@ export default class Raycast extends EventEmitter {
     
   }
   changeCameraPosition() {
-    if (this.currentIntersect === "project") {
+    if (this.currentIntersect === "project" || this.currentIntersect === "aboutMe") {
       this.isCameraMoving = true;
       if (this.isCameraMoving) {
         this.projectCamera.start();
       }
     }
-    if(this.currentIntersect === "aboutMe"){
+    if(this.currentIntersect === "contactUs"){
       this.isCameraMoving = true;
       if (this.isCameraMoving) {
         this.contactUsCamera.start();

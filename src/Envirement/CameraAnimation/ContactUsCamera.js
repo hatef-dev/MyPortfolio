@@ -47,6 +47,9 @@ export default class ContactUsCamera {
   }
 
   start() {
+    if (this.camera.controls) {
+        this.camera.controls.enabled = false;
+      }
     // Temporarily disable controls during animation
     const tl = this.gsap.timeline();
     if (this.sizeWidth < 480) {
@@ -90,9 +93,6 @@ export default class ContactUsCamera {
         );
     }
 
-    if (this.camera.controls) {
-      this.camera.controls.enabled = false;
-    }
     else{
         tl.to(
             this.camera.perspectiveCamera.position,
@@ -133,6 +133,7 @@ export default class ContactUsCamera {
               "+=0.1"
             );
     }
+    
 
     // Animate the controls target
   }
