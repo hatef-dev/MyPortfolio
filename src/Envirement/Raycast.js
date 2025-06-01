@@ -2,6 +2,7 @@ import * as THREE from "three";
 import EventEmitter from "./Utils/EmitterEven.js";
 import ProjectCamera from "./CameraAnimation/ProjectAboutMeCameraAnimation.js";
 import Experience from "./Experience.js";
+import ContactUsCamera from "./CameraAnimation/ContactUsCamera.js";
 export default class Raycast extends EventEmitter {
   constructor() {
     super();
@@ -15,6 +16,7 @@ export default class Raycast extends EventEmitter {
     this.isCameraMoving = false;
     this.currentIntersect = null;
     this.projectCamera = new ProjectCamera();
+    this.contactUsCamera = new ContactUsCamera();
     // Bind the event handler to this instance
     this.onMouseMove = this.onMouseMove.bind(this);
     this.selectedObject();
@@ -26,15 +28,14 @@ export default class Raycast extends EventEmitter {
   }
   selectedObject() {
     this.scene.traverse((child) => {
-      if (
-        child.name == "FindingWaySign_Card1" 
-      ) {
-        this.projectClicked = child;
-      }
-      if (
-        child.name == "FindingWaySign_Card2"
-      ) {
-        this.AboutMeClicked = child;
+      if(child instanceof THREE.Mesh){
+        if(child.name == "FindingWaySign_Card1"){
+          this.projectClicked = child;
+        }
+        if(child.name == "FindingWaySign_Card2"){
+          this.AboutMeClicked =  child;
+          
+        }
       }
     });
   }
@@ -71,10 +72,16 @@ export default class Raycast extends EventEmitter {
     }
   }
   changeCameraPosition() {
-    if (this.currentIntersect === "project" || this.currentIntersect === "aboutMe") {
+    if (this.currentIntersect === "project") {
       this.isCameraMoving = true;
       if (this.isCameraMoving) {
         this.projectCamera.start();
+      }
+    }
+    if(this.currentIntersect === "aboutMe"){
+      this.isCameraMoving = true;
+      if (this.isCameraMoving) {
+        this.contactUsCamera.start();
       }
     }
   }

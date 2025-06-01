@@ -7,7 +7,6 @@ import CamerStartAnimation from "../CameraAnimation/CamerStartAnimation.js";
 import Raycast from "../Raycast.js";
 import Smoke from "./Smoke.js";
 
-
 export default class World {
   constructor() {
     this.experience = new Experience();
@@ -15,6 +14,7 @@ export default class World {
     this.resources = this.experience.resources;
     this.debug = this.experience.debug;
     this.cameraStartAnimation = new CamerStartAnimation();
+    
     this.raycast = null;
     this.resources.on("ready", () => {
       this.cameraStartAnimation.start();

@@ -58,6 +58,7 @@ export default class Envirement {
   }
   update() {
     this.camera.update();
+    // console.log(this.camera.perspectiveCamera.position);
     this.statsTest.update();
     this.world.update();
     this.renderer.update();

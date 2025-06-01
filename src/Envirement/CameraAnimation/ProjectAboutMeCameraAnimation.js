@@ -10,7 +10,7 @@ export default class ProjectCamera {
     this.targetPoint = new THREE.Vector3(0, 2.6, -5.5);
 
     if (this.debug && this.debug.active) {
-      this.debugFolder = this.debug.gui.addFolder('Camera Target');
+      this.debugFolder = this.debug.gui.addFolder('Camera Target Tv');
       
       // Add controls for target point
       this.debugFolder.add(this.targetPoint, 'x').min(-10).max(10).step(0.1).name('Target X')

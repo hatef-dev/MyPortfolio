@@ -23,6 +23,8 @@ export default class Model {
 
                     child.material.alphaMap = texture
                 }
+                if(child.name === "Instagram_click"){
+                }
             }
         })
         this.scene.add(this.model)
