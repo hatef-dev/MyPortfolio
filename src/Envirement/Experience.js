@@ -23,7 +23,7 @@ export default class Envirement {
     instance = this;
     this.gsap = gsap;
     this.parameters = {
-      backgroundColor: "#999999",
+      backgroundColor: "#1c1c1c",
     };
     this.debug = new Debug();
     this.statsTest = new StatsTest();
@@ -58,7 +58,7 @@ export default class Envirement {
   }
   update() {
     this.camera.update();
-    // console.log(this.camera.perspectiveCamera.position);
+
     this.statsTest.update();
     this.world.update();
     this.renderer.update();

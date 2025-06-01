@@ -10,6 +10,13 @@ export default class Model {
     }
     setModel() {
         this.model = this.resources.items.glbModel.scene;
+        this.model.traverse((child) => {
+            if(child.isMesh){
+                
+
+                child.material.emissiveIntensity = 7;
+            }
+        })
         this.model.scale.set(1, 1, 1)
         this.scene.add(this.model)
     }

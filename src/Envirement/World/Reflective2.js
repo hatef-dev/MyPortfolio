@@ -22,6 +22,7 @@ export default class Reflective2 {
     }
     this.setmirrorGeometry();
     this.setMirror();
+    
     // this.setCircle();
   }
   setmirrorGeometry() {
@@ -54,7 +55,7 @@ export default class Reflective2 {
     this.mirror.position.y = -0.001;
     this.mirror.position.x = -0.089;
     this.mirror.position.z = -0.139;
-    this.mirror.scale.set(2.520, 2.520, 1);
+    this.mirror.scale.set(60.5, 60.5, 1);
     this.experience.scene.add(this.mirror);
     this.mirror.material.transparent = true;
     this.mirror.material.opacity = 0.8;
@@ -66,6 +67,9 @@ export default class Reflective2 {
       this.reflectiveFolder.add(this.parameters, 'blurRadius', 0, 1).onChange(() => {
         this.mirror.material.uniforms.blurRadius.value = this.parameters.blurRadius
       })
+      this.reflectiveFolder.add(this.mirror.position, 'x').min(-10).max(10).step(0.01).name("Mirror X")
+      this.reflectiveFolder.add(this.mirror.position, 'y').min(-10).max(10).step(0.01).name("Mirror Y")
+      this.reflectiveFolder.add(this.mirror.position, 'z').min(-10).max(10).step(0.01).name("Mirror Z")
     }
   }
 

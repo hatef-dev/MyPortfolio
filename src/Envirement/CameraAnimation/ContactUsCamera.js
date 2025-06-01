@@ -49,6 +49,7 @@ export default class ContactUsCamera {
   start() {
     if (this.camera.controls) {
         this.camera.controls.enabled = false;
+        this.camera.controls.enableRotate = false;
       }
     // Temporarily disable controls during animation
     const tl = this.gsap.timeline();
@@ -83,8 +84,8 @@ export default class ContactUsCamera {
             z: 0.5,
             ease: "power2.inOut",
             onComplete: () => {
-              this.camera.controls.enabled = true;
-              this.camera.controls.enableRotate = true;
+              // this.camera.controls.enabled = true;
+              this.camera.controls.enableRotate = false;
               this.camera.controls.enableZoom = true;
             },
           },
@@ -125,7 +126,7 @@ export default class ContactUsCamera {
                 ease: "power2.inOut",
                 onComplete: () => {
                   this.camera.controls.enabled = true;
-                  this.camera.controls.enableRotate = true;
+                  this.camera.controls.enableRotate = false;
                   this.camera.controls.enableZoom = true;
                 },
               },

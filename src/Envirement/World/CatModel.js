@@ -5,16 +5,26 @@ export default class Fox {
   constructor() {
     this.experience = new Experience();
     this.scene = this.experience.scene;
+    this.debug = this.experience.debug;
+    if (this.debug.active) {
+      this.catFolder = this.debug.gui.addFolder("Cat");
+    }
     this.resources = this.experience.resources;
     this.setModel();
     this.setAnimation();
   }
   setModel() {
     this.model = this.resources.items.catModel;
-    this.model.scene.scale.set(0.0025, 0.0025, 0.0025);
-    this.model.scene.position.set(0.007, 0.606, -0.077);
+    this.model.scene.scale.set(0.027, 0.027, 0.027);
+    this.model.scene.position.set(-0.6, 6.5, -0.077);
+
     this.scene.add(this.model.scene);
-    
+    if (this.debug.active) {
+      this.catFolder.add(this.model.scene.position, "x").min(-20).max(10).step(0.001).name("Cat X");
+      this.catFolder.add(this.model.scene.position, "y").min(-10).max(10).step(0.001).name("Cat Y");
+      this.catFolder.add(this.model.scene.position, "z").min(-10).max(10).step(0.001).name("Cat Z");
+    }
+
   }
   setAnimation() {
     this.animation = {};

@@ -1,8 +1,10 @@
 import * as THREE from "three";
 import EventEmitter from "./Utils/EmitterEven.js";
-import ProjectCamera from "./CameraAnimation/ProjectAboutMeCameraAnimation.js";
 import Experience from "./Experience.js";
+// Camera Animation
+import ProjectCamera from "./CameraAnimation/ProjectAboutMeCameraAnimation.js";
 import ContactUsCamera from "./CameraAnimation/ContactUsCamera.js";
+import ExitCamera from "./CameraAnimation/ExitCamera.js";
 export default class Raycast extends EventEmitter {
   constructor() {
     super();
@@ -41,6 +43,7 @@ export default class Raycast extends EventEmitter {
     // Camera Animation
     this.projectCamera = new ProjectCamera();
     this.contactUsCamera = new ContactUsCamera();
+    this.exitCamera = new ExitCamera();
     // Bind the event handler to this instance
     this.onMouseMove = this.onMouseMove.bind(this);
     this.selectedObject();
@@ -252,6 +255,7 @@ export default class Raycast extends EventEmitter {
       this.tvScreen.material.map = null;
       this.tvScreen.material.needsUpdate = true;
       this.currentTexture = 0;
+      this.exitCamera.start();
     }
 
 
