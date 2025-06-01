@@ -11,14 +11,27 @@ export default class Raycast extends EventEmitter {
     this.camera = this.experience.camera.perspectiveCamera;
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
+    this.aboutMeTexture = [
+      this.experience.resources.items.AboutMe1,
+      this.experience.resources.items.AboutMe2,
+      this.experience.resources.items.AboutMe3,
+      this.experience.resources.items.AboutMe4,
+    ];
+
+    // Raycast
     this.projectClicked = null;
     this.AboutMeClicked = null;
     this.contactUs = null;
     this.linkdinClicked = null;
     this.githubClicked = null;
     this.instagramClicked = null;
+    this.tvScreen = null;
+
+    // Camera
     this.isCameraMoving = false;
     this.currentIntersect = null;
+
+    // Camera Animation
     this.projectCamera = new ProjectCamera();
     this.contactUsCamera = new ContactUsCamera();
     // Bind the event handler to this instance
@@ -32,28 +45,26 @@ export default class Raycast extends EventEmitter {
   }
   selectedObject() {
     this.scene.traverse((child) => {
-      if(child instanceof THREE.Mesh){
-        if(child.name == "FindingWaySign_Card1"){
+      if (child instanceof THREE.Mesh) {
+        if (child.name == "FindingWaySign_Card1") {
           this.projectClicked = child;
         }
-        if(child.name == "FindingWaySign_Card2"){
-          this.AboutMeClicked =  child;
-          
+        if (child.name == "FindingWaySign_Card2") {
+          this.AboutMeClicked = child;
         }
-        if(child.name == "FindingWaySign_Card3"){
-          this.contactUs =  child;
-          
+        if (child.name == "FindingWaySign_Card3") {
+          this.contactUs = child;
         }
-        if(child.name == "Linkedin_click"){
+        if (child.name == "Linkedin_click") {
           this.linkdinClicked = child;
-          
         }
-        if(child.name == "Github_click"){
+        if (child.name == "Github_click") {
           this.githubClicked = child;
         }
-        if(child.name == "Instagram_click"){
+        if (child.name == "Instagram_click") {
           this.instagramClicked = child;
         }
+        
       }
     });
   }
@@ -66,8 +77,8 @@ export default class Raycast extends EventEmitter {
   update() {
     let intersects = null;
     this.raycaster.setFromCamera(this.mouse, this.camera);
-    
-     if (this.projectClicked) {
+
+    if (this.projectClicked) {
       intersects = this.raycaster.intersectObject(this.projectClicked);
       if (intersects.length > 0) {
         if (!this.currentIntersect) {
@@ -82,8 +93,7 @@ export default class Raycast extends EventEmitter {
       if (intersects.length > 0) {
         if (!this.currentIntersect) {
           this.currentIntersect = "aboutMe";
-        }
-        else {
+        } else {
           this.currentIntersect = null;
         }
       }
@@ -93,8 +103,7 @@ export default class Raycast extends EventEmitter {
       if (intersects.length > 0) {
         if (!this.currentIntersect) {
           this.currentIntersect = "contactUs";
-        }
-        else {
+        } else {
           this.currentIntersect = null;
         }
       }
@@ -104,8 +113,7 @@ export default class Raycast extends EventEmitter {
       if (intersects.length > 0) {
         if (!this.currentIntersect) {
           this.currentIntersect = "linkdin";
-        }
-        else {
+        } else {
           this.currentIntersect = null;
         }
       }
@@ -115,8 +123,7 @@ export default class Raycast extends EventEmitter {
       if (intersects.length > 0) {
         if (!this.currentIntersect) {
           this.currentIntersect = "github";
-        }
-        else {
+        } else {
           this.currentIntersect = null;
         }
       }
@@ -126,36 +133,36 @@ export default class Raycast extends EventEmitter {
       if (intersects.length > 0) {
         if (!this.currentIntersect) {
           this.currentIntersect = "instagram";
-        } 
-        else {
+        } else {
           this.currentIntersect = null;
         }
       }
     }
-    
-    
   }
   changeCameraPosition() {
-    if (this.currentIntersect === "project" || this.currentIntersect === "aboutMe") {
+    if (
+      this.currentIntersect === "project" ||
+      this.currentIntersect === "aboutMe"
+    ) {
       this.isCameraMoving = true;
       if (this.isCameraMoving) {
         this.projectCamera.start();
       }
     }
-    if(this.currentIntersect === "contactUs"){
+    if (this.currentIntersect === "contactUs") {
       this.isCameraMoving = true;
       if (this.isCameraMoving) {
         this.contactUsCamera.start();
       }
     }
-    if(this.currentIntersect === "linkdin"){
-      window.open("https://www.linkedin.com/in/hatef-sanati/")
+    if (this.currentIntersect === "linkdin") {
+      window.open("https://www.linkedin.com/in/hatef-sanati/");
     }
-    if(this.currentIntersect === "github"){
-      window.open("https://github.com/hatef-dev")
+    if (this.currentIntersect === "github") {
+      window.open("https://github.com/hatef-dev");
     }
-    if(this.currentIntersect === "instagram"){
-      window.open("https://www.instagram.com/hatef_sanati/")
+    if (this.currentIntersect === "instagram") {
+      window.open("https://www.instagram.com/hatef_sanati/");
     }
   }
 }

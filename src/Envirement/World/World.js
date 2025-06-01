@@ -6,7 +6,7 @@ import CatModel from "./CatModel.js";
 import CamerStartAnimation from "../CameraAnimation/CamerStartAnimation.js";
 import Raycast from "../Raycast.js";
 import Smoke from "./Smoke.js";
-
+import TvScreen from "./TvScreen.js";
 export default class World {
   constructor() {
     this.experience = new Experience();
@@ -24,6 +24,7 @@ export default class World {
       this.reflective2 = new Reflective2();
       this.raycast = new Raycast();
       this.smoke = new Smoke();
+      this.tvScreen = new TvScreen();
     });
     
     if (this.raycast) {
