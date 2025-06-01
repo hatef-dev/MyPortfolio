@@ -8,6 +8,8 @@ export default class Renderer {
             canvas: this.canvas,
             antialias: true
         })
+
+        this.clock = new THREE.Clock()
         this.renderer.setSize(this.experience.sizes.width, this.experience.sizes.height)
         this.renderer.setPixelRatio(this.experience.sizes.pixelRatio)
         this.renderer.render(this.experience.scene, this.experience.camera.perspectiveCamera)

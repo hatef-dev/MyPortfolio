@@ -5,7 +5,8 @@ import Reflective2 from "./Reflective2.js";
 import CatModel from "./CatModel.js";
 import CamerStartAnimation from "../CameraAnimation/CamerStartAnimation.js";
 import Raycast from "../Raycast.js";
-// import * as THREE from "three";
+import Smoke from "./Smoke.js";
+
 
 export default class World {
   constructor() {
@@ -22,6 +23,7 @@ export default class World {
       this.envirment = new Envirment();
       this.reflective2 = new Reflective2();
       this.raycast = new Raycast();
+      this.smoke = new Smoke();
     });
     
     if (this.raycast) {
@@ -34,6 +36,9 @@ export default class World {
     }
     if (this.raycast) {
       this.raycast.update();
+    }
+    if (this.smoke) {
+      this.smoke.update();
     }
   }
 }

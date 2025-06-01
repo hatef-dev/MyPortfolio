@@ -31,6 +31,12 @@ export default class Envirement {
     this.canvas = canvas;
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(this.parameters.backgroundColor);
+    if(this.debug.active){
+      this.debugFolder = this.debug.gui.addFolder("Envirement");
+      this.debugFolder.addColor(this.parameters, "backgroundColor").name("BackgroundColor").onChange(() => {
+        this.scene.background = new THREE.Color(this.parameters.backgroundColor);
+      });
+    }
     this.sizes = new Sizes();
     this.time = new Time();
     this.camera = new Camera(this.canvas);
