@@ -16,7 +16,7 @@ export default class Fox {
   setModel() {
     this.model = this.resources.items.catModel;
     this.model.scene.scale.set(0.027, 0.027, 0.027);
-    this.model.scene.position.set(-0.6, 6.5, -0.077);
+    this.model.scene.position.set(1.9, 6, -0.077);
 
     this.scene.add(this.model.scene);
     if (this.debug.active) {

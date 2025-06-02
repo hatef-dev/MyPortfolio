@@ -8,7 +8,7 @@ import World from "./World/World.js";
 import assets from "./assets.js";
 import Debug from "./Utils/Debug.js";
 import gsap from "gsap";
-import StatsTest from "./Utils/StatsTest.js";
+// import StatsTest from "./Utils/StatsTest.js";
 import LoadingManager from "./LoadingManger.js";
 let instance = null;
 
@@ -26,7 +26,7 @@ export default class Envirement {
       backgroundColor: "#1c1c1c",
     };
     this.debug = new Debug();
-    this.statsTest = new StatsTest();
+    // this.statsTest = new StatsTest();
     this.loadingManager = new LoadingManager();
     this.canvas = canvas;
     this.scene = new THREE.Scene();
@@ -59,7 +59,7 @@ export default class Envirement {
   update() {
     this.camera.update();
 
-    this.statsTest.update();
+    // this.statsTest.update();
     this.world.update();
     this.renderer.update();
   }
