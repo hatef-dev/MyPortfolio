@@ -12,6 +12,11 @@ A beautiful 3D portfolio website built with Three.js.
 - **Debug Tools**: Built-in debugging with lil-gui
 - **Performance Monitoring**: stats.js integration
 
+## Demo
+
+[Live Demo](https://myportfolio-threejs.vercel.app/)
+![Banner](./static/texture/demo.png)
+
 ## 🛠️ Tech Stack
 
 - **Three.js**: 3D rendering library
