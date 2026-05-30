@@ -14,7 +14,7 @@ export default class TvScreen {
         this.createTvScreen()
     } 
     createTvScreen() {
-        this.TvGeometry = new THREE.PlaneGeometry(2,1.1 )
+        this.TvGeometry = new THREE.PlaneGeometry(1.8,1.05 )
         this.TvMaterial = new THREE.MeshBasicMaterial({color:0xffffff})
 
         this.TvScreen = new THREE.Mesh(
@@ -22,14 +22,15 @@ export default class TvScreen {
             this.TvMaterial
         )
         this.TvScreen.name = "TvScreen"
-        this.TvScreen.position.set(0.01, 2.7, -3.83)
+        this.TvScreen.position.set(0.03, 2.7, -3.83)
         // this.TvScreen.scale.set(0.19, 0.11)
         if(this.debug.active) {
             this.tvScreenFolder.add(this.TvScreen.position, "x").min(-10).max(10).step(0.01).name("TvScreen X")
             this.tvScreenFolder.add(this.TvScreen.position, "y").min(-10).max(10).step(0.01).name("TvScreen Y")
-        
+            this.tvScreenFolder.add(this.TvScreen.position, "z").min(-10).max(10).step(0.01).name("TvScreen Z")
             this.tvScreenFolder.add(this.TvScreen.scale, "x").min(0.01).max(1).step(0.01).name("TvScreen Scale X")
             this.tvScreenFolder.add(this.TvScreen.scale, "y").min(0.01).max(1).step(0.01).name("TvScreen Scale Y")
+            this.tvScreenFolder.add(this.TvScreen.scale, "z").min(0.01).max(1).step(0.01).name("TvScreen Scale Z")
             
         }
         this.TvScreen.rotation.x = Math.PI

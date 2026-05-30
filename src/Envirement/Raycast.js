@@ -13,15 +13,40 @@ export default class Raycast extends EventEmitter {
     this.camera = this.experience.camera.perspectiveCamera;
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
-    // Textures 
+    // Textures
     this.currentTexture = 0;
     this.aboutMeTextures = [
       this.experience.resources.items.AboutMe1,
       this.experience.resources.items.AboutMe2,
       this.experience.resources.items.AboutMe3,
     ];
-    for(let i = 0; i < this.aboutMeTextures.length; i++) {
+    this.projectTextures = [
+      {
+        texture: this.experience.resources.items.Project1,
+        link: "https://github.com/hatef-dev/MyPortfolio",
+      },
+      {
+        texture: this.experience.resources.items.Project2,
+        link: "https://github.com/hatef-dev/tailwindStore",
+      },
+      {
+        texture: this.experience.resources.items.Project3,
+        link: "https://github.com/hatef-dev/TOL",
+      },
+      {
+        texture: this.experience.resources.items.Project4,
+        link: "https://github.com/hatef-dev/Agency-Vue",
+      },
+      {
+        texture: this.experience.resources.items.Project5,
+        link: "https://github.com/hatef-dev/Threejs-tabriz",
+      },
+    ];
+    for (let i = 0; i < this.aboutMeTextures.length; i++) {
       this.aboutMeTextures[i].colorSpace = THREE.SRGBColorSpace;
+    }
+    for (let i = 0; i < this.projectTextures.length; i++) {
+      this.projectTextures[i].texture.colorSpace = THREE.SRGBColorSpace;
     }
     // Raycast
     this.projectClicked = null;
@@ -56,9 +81,6 @@ export default class Raycast extends EventEmitter {
   selectedObject() {
     this.scene.traverse((child) => {
       if (child instanceof THREE.Mesh) {
-
-       
-
         // Social Media
         if (child.name == "Linkedin_click") {
           this.linkdinClicked = child;
@@ -69,30 +91,26 @@ export default class Raycast extends EventEmitter {
         if (child.name == "Instagram_click") {
           this.instagramClicked = child;
         }
-        if (child.name == "Exit_click"){
+        if (child.name == "Exit_click") {
           this.exitSocialMedia = child;
         }
-        
-        
 
         // TvScreen
-        if(child.name == "TvScreen"){
+        if (child.name == "TvScreen") {
           this.tvScreen = child;
         }
-        if(child.name == "Next_Button"){
+        if (child.name == "Next_Button") {
           this.nextButton = child;
         }
-        if(child.name == "Previous_Button"){
+        if (child.name == "Previous_Button") {
           this.previousButton = child;
         }
-        if(child.name == "Exit_Button"){
+        if (child.name == "Exit_Button") {
           this.exitButton = child;
         }
-        
 
-
-         // Project About Me Contact Me
-         if (child.name == "FindingWaySign_Card1") {
+        // Project About Me Contact Me
+        if (child.name == "FindingWaySign_Card1") {
           this.projectClicked = child;
         }
         if (child.name == "FindingWaySign_Card2") {
@@ -101,7 +119,6 @@ export default class Raycast extends EventEmitter {
         if (child.name == "FindingWaySign_Card3") {
           this.contactUs = child;
         }
-        
       }
     });
   }
@@ -118,7 +135,7 @@ export default class Raycast extends EventEmitter {
     // Project About Me Contact Me
     if (this.projectClicked) {
       intersects = this.raycaster.intersectObject(this.projectClicked);
-      
+
       if (intersects.length > 0) {
         if (!this.currentIntersect) {
           this.currentIntersect = "project";
@@ -148,7 +165,6 @@ export default class Raycast extends EventEmitter {
         }
       }
     }
-
 
     // Social Media
     if (this.linkdinClicked) {
@@ -186,7 +202,6 @@ export default class Raycast extends EventEmitter {
       intersects = this.raycaster.intersectObject(this.exitSocialMedia);
       if (intersects.length > 0) {
         if (!this.currentIntersect) {
-          
           this.currentIntersect = "exitSocialMedia";
         } else {
           this.currentIntersect = null;
@@ -195,49 +210,57 @@ export default class Raycast extends EventEmitter {
     }
 
     // TvScreen
-    if(this.tvScreen){
+    if (this.tvScreen) {
       intersects = this.raycaster.intersectObject(this.tvScreen);
-      if(intersects.length > 0){
+      if (intersects.length > 0) {
         this.currentIntersect = "tvScreen";
       }
     }
 
-    // Next Button  
-    if(this.nextButton){
+    // Next Button
+    if (this.nextButton) {
       intersects = this.raycaster.intersectObject(this.nextButton);
-      if(intersects.length > 0){
+      if (intersects.length > 0) {
         this.currentIntersect = "nextButton";
       }
     }
 
     // Previous Button
-    if(this.previousButton){
+    if (this.previousButton) {
       intersects = this.raycaster.intersectObject(this.previousButton);
-      if(intersects.length > 0){
+      if (intersects.length > 0) {
         this.currentIntersect = "previousButton";
       }
     }
 
     // Exit Button
-    if(this.exitButton){
+    if (this.exitButton) {
       intersects = this.raycaster.intersectObject(this.exitButton);
-      if(intersects.length > 0){
+      if (intersects.length > 0) {
         this.currentIntersect = "exitButton";
       }
     }
   }
   doAction() {
     // Project About Me Contact Me
-    if (
-      this.currentIntersect === "project" ||
-      this.currentIntersect === "aboutMe"
-    ) {
+    if (this.currentIntersect === "aboutMe") {
       this.tvScreen.material.map = this.aboutMeTextures[0];
+      this.type = "aboutMe";
       this.isCameraMoving = true;
       if (this.isCameraMoving) {
         this.projectCamera.start();
       }
     }
+
+    if (this.currentIntersect === "project") {
+      this.tvScreen.material.map = this.projectTextures[0].texture;
+      this.type = "project";
+      this.isCameraMoving = true;
+      if (this.isCameraMoving) {
+        this.projectCamera.start();
+      }
+    }
+
     if (this.currentIntersect === "contactUs") {
       this.isCameraMoving = true;
       if (this.isCameraMoving) {
@@ -258,31 +281,48 @@ export default class Raycast extends EventEmitter {
     if (this.currentIntersect === "exitSocialMedia") {
       this.contactUsCamera.end();
     }
-
+    if(this.currentIntersect === "tvScreen"){
+      if(this.type === "project"){
+        window.open(this.projectTextures[this.currentTexture].link);
+      }
+    }
     // TvScreen
-    if(this.currentIntersect === "nextButton"){
-      if(this.currentTexture < this.aboutMeTextures.length - 1){
-        this.currentTexture++;
-        this.changeTexture();
+    if (this.currentIntersect === "nextButton") {
+      if (this.type === "aboutMe") {
+        if (this.currentTexture < this.aboutMeTextures.length - 1) {
+          this.currentTexture++;
+          this.changeTexture(this.type);
+        }
+      }
+      if (this.type === "project") {
+        if (this.currentTexture < this.projectTextures.length - 1) {
+          this.currentTexture++;
+          this.changeTexture(this.type);
+        }
       }
     }
-    if(this.currentIntersect === "previousButton"){
-      if(this.currentTexture > 0){
+    if (this.currentIntersect === "previousButton") {
+      if (this.currentTexture > 0) {
         this.currentTexture--;
-        this.changeTexture();
+        this.changeTexture(this.type);
       }
     }
-    if(this.currentIntersect === "exitButton"){
+    if (this.currentIntersect === "exitButton") {
       this.tvScreen.material.map = null;
       this.tvScreen.material.needsUpdate = true;
       this.currentTexture = 0;
       this.exitCamera.start();
     }
-
-
   }
-  changeTexture(){
-    this.tvScreen.material.map = this.aboutMeTextures[this.currentTexture];
+  changeTexture(type) {
+    if (type === "aboutMe") {
+      this.tvScreen.material.map = this.aboutMeTextures[this.currentTexture];
+    } else if (type === "project") {
+      this.tvScreen.material.map =
+        this.projectTextures[this.currentTexture].texture;
+      
+    }
+
     this.tvScreen.material.needsUpdate = true;
   }
 }
