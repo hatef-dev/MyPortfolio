@@ -10,6 +10,17 @@ export default class ContactUsCamera {
     this.gsap = this.experience.gsap;
     this.debug = this.experience.debug;
     this.targetPoint = new THREE.Vector3(0, 0, 0);
+    this.initialCameraPosition = {
+      x: this.camera.perspectiveCamera.position.x,
+      y: this.camera.perspectiveCamera.position.y,
+      z: this.camera.perspectiveCamera.position.z,
+    };
+
+    this.initialTarget = {
+      x: this.camera.controls.target.x,
+      y: this.camera.controls.target.y,
+      z: this.camera.controls.target.z,
+    };
 
     if (this.debug && this.debug.active) {
       this.debugFolder = this.debug.gui.addFolder("Camera Target Link");
@@ -48,9 +59,9 @@ export default class ContactUsCamera {
 
   start() {
     if (this.camera.controls) {
-        this.camera.controls.enabled = false;
-        this.camera.controls.enableRotate = false;
-      }
+      this.camera.controls.enabled = false;
+      this.camera.controls.enableRotate = false;
+    }
     // Temporarily disable controls during animation
     const tl = this.gsap.timeline();
     if (this.sizeWidth < 480) {
@@ -63,7 +74,7 @@ export default class ContactUsCamera {
           z: 0,
           ease: "power2.inOut",
         },
-        "0"
+        "0",
       )
         .to(
           this.camera.controls.target,
@@ -73,7 +84,7 @@ export default class ContactUsCamera {
             y: 0,
             z: -2.1,
           },
-          "0"
+          "0",
         )
         .to(
           this.camera.perspectiveCamera.position,
@@ -90,52 +101,97 @@ export default class ContactUsCamera {
             },
           },
 
-          "+=0.1"
+          "+=0.1",
+        );
+    } else {
+      tl.to(
+        this.camera.perspectiveCamera.position,
+        {
+          duration: 1,
+          x: 10,
+          y: 4,
+          z: 0,
+          ease: "power2.inOut",
+        },
+        "0",
+      )
+        .to(
+          this.camera.controls.target,
+          {
+            //   duration: 1,
+            x: -2,
+            y: 0,
+            z: -2.1,
+          },
+          "0",
+        )
+        .to(
+          this.camera.perspectiveCamera.position,
+          {
+            duration: 1,
+            x: -0.6,
+            y: 1.8,
+            z: -0.3,
+            ease: "power2.inOut",
+            onComplete: () => {
+              this.camera.controls.enabled = true;
+              this.camera.controls.enableRotate = false;
+              this.camera.controls.enableZoom = true;
+            },
+          },
+
+          "+=0.1",
         );
     }
 
-    else{
-        tl.to(
-            this.camera.perspectiveCamera.position,
-            {
-              duration: 1,
-              x: 10,
-              y: 4,
-              z: 0,
-              ease: "power2.inOut",
-            },
-            "0"
-          )
-            .to(
-              this.camera.controls.target,
-              {
-                //   duration: 1,
-                x: -2,
-                y: 0,
-                z: -2.1,
-              },
-              "0"
-            )
-            .to(
-              this.camera.perspectiveCamera.position,
-              {
-                duration: 1,
-                x: -0.6,
-                y: 1.8,
-                z: -0.3,
-                ease: "power2.inOut",
-                onComplete: () => {
-                  this.camera.controls.enabled = true;
-                  this.camera.controls.enableRotate = false;
-                  this.camera.controls.enableZoom = true;
-                },
-              },
-      
-              "+=0.1"
-            );
-    }
-    
-
     // Animate the controls target
+  }
+
+  end() {
+    if (this.camera.controls) {
+      this.camera.controls.enabled = false;
+      this.camera.controls.enableRotate = false;
+    }
+
+    const tl = this.gsap.timeline();
+
+    tl.to(
+      this.camera.perspectiveCamera.position,
+      {
+        duration: 1,
+        x: 10,
+        y: 4,
+        z: 0,
+        ease: "power2.inOut",
+      },
+      "0",
+    )
+      .to(
+        this.camera.controls.target,
+        {
+          duration: 1,
+          x: this.initialTarget.x,
+          y: this.initialTarget.y,
+          z: this.initialTarget.z,
+          ease: "power2.inOut",
+        },
+        "0",
+      )
+      .to(
+        this.camera.perspectiveCamera.position,
+        {
+          duration: 1,
+          x: 15,
+          y: this.initialCameraPosition.y,
+          z: this.initialCameraPosition.z,
+          ease: "power2.inOut",
+          onComplete: () => {
+            this.camera.controls.enabled = true;
+            this.camera.controls.enableRotate = true;
+            this.camera.controls.enableZoom = true;
+          },
+        },
+        "+=0.1",
+      );
   }
 }

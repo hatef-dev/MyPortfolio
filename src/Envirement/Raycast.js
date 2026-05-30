@@ -34,6 +34,7 @@ export default class Raycast extends EventEmitter {
     this.nextButton = null;
     this.previousButton = null;
     this.exitButton = null;
+    this.exitSocialMedia = null;
 
     // Camera
     this.isCameraMoving = false;
@@ -68,6 +69,11 @@ export default class Raycast extends EventEmitter {
         if (child.name == "Instagram_click") {
           this.instagramClicked = child;
         }
+        if (child.name == "Exit_click"){
+          this.exitSocialMedia = child;
+        }
+        
+        
 
         // TvScreen
         if(child.name == "TvScreen"){
@@ -79,9 +85,7 @@ export default class Raycast extends EventEmitter {
         if(child.name == "Previous_Button"){
           this.previousButton = child;
         }
-        if(child.name == "Exit_Button"){
-          this.exitButton = child;
-        }
+        
 
 
          // Project About Me Contact Me
@@ -175,6 +179,18 @@ export default class Raycast extends EventEmitter {
       }
     }
 
+    if (this.exitSocialMedia) {
+      intersects = this.raycaster.intersectObject(this.exitSocialMedia);
+      if (intersects.length > 0) {
+        if (!this.currentIntersect) {
+          
+          this.currentIntersect = "exitSocialMedia";
+        } else {
+          this.currentIntersect = null;
+        }
+      }
+    }
+
     // TvScreen
     if(this.tvScreen){
       intersects = this.raycaster.intersectObject(this.tvScreen);
@@ -235,6 +251,9 @@ export default class Raycast extends EventEmitter {
     }
     if (this.currentIntersect === "instagram") {
       window.open("https://www.instagram.com/hatef_sanati/");
+    }
+    if (this.currentIntersect === "exitSocialMedia") {
+      this.contactUsCamera.end();
     }
 
     // TvScreen
