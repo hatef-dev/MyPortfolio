@@ -85,7 +85,9 @@ export default class Raycast extends EventEmitter {
         if(child.name == "Previous_Button"){
           this.previousButton = child;
         }
-        
+        if(child.name == "Exit_Button"){
+          this.exitButton = child;
+        }
 
 
          // Project About Me Contact Me
