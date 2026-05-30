@@ -19,7 +19,6 @@ export default class Raycast extends EventEmitter {
       this.experience.resources.items.AboutMe1,
       this.experience.resources.items.AboutMe2,
       this.experience.resources.items.AboutMe3,
-      this.experience.resources.items.AboutMe4,
     ];
     for(let i = 0; i < this.aboutMeTextures.length; i++) {
       this.aboutMeTextures[i].colorSpace = THREE.SRGBColorSpace;

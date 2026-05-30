@@ -40,10 +40,5 @@ export default [
         type: "texture",
         path: "/texture/3.png"
     },
-    {
-        name: "AboutMe4",
-        type: "texture",
-        path: "/texture/4.png"
-
-    }
+    
 ]

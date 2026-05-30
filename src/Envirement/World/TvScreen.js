@@ -14,7 +14,7 @@ export default class TvScreen {
         this.createTvScreen()
     } 
     createTvScreen() {
-        this.TvGeometry = new THREE.PlaneGeometry(10, 10)
+        this.TvGeometry = new THREE.PlaneGeometry(2,1.1 )
         this.TvMaterial = new THREE.MeshBasicMaterial({color:0xffffff})
 
         this.TvScreen = new THREE.Mesh(
@@ -23,7 +23,7 @@ export default class TvScreen {
         )
         this.TvScreen.name = "TvScreen"
         this.TvScreen.position.set(0.01, 2.7, -3.83)
-        this.TvScreen.scale.set(0.19, 0.11)
+        // this.TvScreen.scale.set(0.19, 0.11)
         if(this.debug.active) {
             this.tvScreenFolder.add(this.TvScreen.position, "x").min(-10).max(10).step(0.01).name("TvScreen X")
             this.tvScreenFolder.add(this.TvScreen.position, "y").min(-10).max(10).step(0.01).name("TvScreen Y")
