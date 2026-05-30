@@ -228,9 +228,17 @@ export default class Raycast extends EventEmitter {
   doAction() {
     // Project About Me Contact Me
     if (
-      this.currentIntersect === "project" ||
+      
       this.currentIntersect === "aboutMe"
     ) {
+      this.tvScreen.material.map = this.aboutMeTextures[0];
+      this.isCameraMoving = true;
+      if (this.isCameraMoving) {
+        this.projectCamera.start();
+      }
+    }
+
+    if(this.currentIntersect === "project"){
       this.tvScreen.material.map = this.aboutMeTextures[0];
       this.isCameraMoving = true;
       if (this.isCameraMoving) {
