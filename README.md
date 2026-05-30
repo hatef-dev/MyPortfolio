@@ -14,7 +14,7 @@ A beautiful 3D portfolio website built with Three.js.
 
 ## Demo
 
-[Live Demo](https://myportfolio-threejs.vercel.app/)
+[Live Demo](https://my-portfolio-two-pink-22.vercel.app/)
 ![Banner](./static/texture/demo.png)
 
 ## 🛠️ Tech Stack
