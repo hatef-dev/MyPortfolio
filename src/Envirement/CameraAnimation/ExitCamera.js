@@ -62,7 +62,7 @@ export default class ExitCamera {
       },
       "0"
     ).to(this.camera.perspectiveCamera.position, {
-        x: 15,
+        x: 10,
         z: 10,
         duration: 1,
         ease: "power2.inOut",

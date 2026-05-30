@@ -181,7 +181,7 @@ export default class ContactUsCamera {
         this.camera.perspectiveCamera.position,
         {
           duration: 1,
-          x: 15,
+          x: 10,
           y: this.initialCameraPosition.y,
           z: this.initialCameraPosition.z,
           ease: "power2.inOut",
