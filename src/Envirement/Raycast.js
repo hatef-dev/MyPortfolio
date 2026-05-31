@@ -311,6 +311,7 @@ export default class Raycast extends EventEmitter {
       this.tvScreen.material.map = null;
       this.tvScreen.material.needsUpdate = true;
       this.currentTexture = 0;
+      this.type = null;
       this.exitCamera.start();
     }
   }
